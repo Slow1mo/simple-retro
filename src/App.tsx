@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useReducer } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Home } from "./page/Home";
+import { Container, CssBaseline } from "@material-ui/core";
+import { mainReducer, initialMainReducerState } from "./reducer";
 
-function App() {
+export const MainContext = createContext()
+
+const App = () => {
+  const [state, dispatcher] = useReducer(mainReducer, initialMainReducerState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <main style={{ marginTop: "50px" }}>
+        <MainContext.Provider value={{ state, dispatcher }}>
+        <Router>
+          <CssBaseline />
+          <Container maxWidth="md">
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </Container>
+        </Router>
+        </MainContext.Provider>
+      </main>
+    </>
   );
 }
 
