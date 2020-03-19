@@ -1,30 +1,31 @@
-import React, { createContext, useReducer } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home } from "./page/Home";
-import { Container, CssBaseline } from "@material-ui/core";
-import { mainReducer, initialMainReducerState } from "./reducer";
+import Home from "./page/Home";
+import { Provider } from 'react-redux'
+import { createStore, combineReducers } from 'redux'
+import { mainReducer } from "./mainReducer";
 
-export const MainContext = createContext()
+const rootReducer = combineReducers({
+  mainReducer: mainReducer,
+})
+
+export type RootState = ReturnType<typeof rootReducer>
+
+const store = createStore(rootReducer)
 
 const App = () => {
-  const [state, dispatcher] = useReducer(mainReducer, initialMainReducerState);
   return (
-    <>
-      <main style={{ marginTop: "50px" }}>
-        <MainContext.Provider value={{ state, dispatcher }}>
-        <Router>
-          <CssBaseline />
-          <Container maxWidth="md">
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </Container>
-        </Router>
-        </MainContext.Provider>
-      </main>
-    </>
+    <Provider store={store}>
+    <main style={{ margin: "50px 50px 0" }}>
+      <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Switch>
+      </Router>
+    </main>
+  </Provider>
   );
 }
 
