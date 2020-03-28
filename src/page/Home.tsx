@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { RootState } from "../App";
 import { actions, ReducerState } from "../mainReducer";
 import { TextInput } from "../component/TextInput";
+import { Card } from "../component/Card";
 
 interface Props {
   reducer: ReducerState;
@@ -25,6 +26,7 @@ const Home = (props: Props) => {
       />
 
       test {props.reducer.user}
+      <Card />
     </div>
   );
 };
