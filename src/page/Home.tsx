@@ -5,6 +5,7 @@ import { actions, ReducerState } from "../mainReducer";
 import { TextInput } from "../component/TextInput";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import { Card } from "../component/Card";
 
 interface Props {
   reducer: ReducerState;
@@ -58,6 +59,9 @@ const Home = (props: Props) => {
           Skapa retro
         </Button>
       </div>
+
+      test {props.reducer.user}
+      <Card />
     </div>
   );
 };
