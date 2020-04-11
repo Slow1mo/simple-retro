@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { RootState } from "../App";
 import { actions, ReducerState } from "../mainReducer";
 import { TextInput } from "../component/TextInput";
-import { Card } from "../component/Card";
+import { Ticket } from "../component/Ticket";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { v4 as uuid } from "uuid"
+import { fireb } from "../fire";
 
 interface Props {
   reducer: ReducerState;
@@ -11,11 +15,22 @@ interface Props {
 }
 
 const Home = (props: Props) => {
-
-  const updateUser = (evt: any) => {
-    props.setUser(evt.target.value);
+  const history = useHistory()
+  const [board, setBoard] = useState("")
+  const updateBoard = (value: string) => {
+    setBoard(value);
   };
-
+  const createBoard = () => {
+    const boardId: string = uuid()
+    console.log('created board', boardId)
+    history.push(`board/${boardId}`)
+    fireb.database().ref(`board`).push(boardId)
+  }
+  
+  const updateUser = (value: string) => {
+    props.setUser(value);
+  };
+  
   return (
     <div>
       <TextInput
@@ -24,9 +39,14 @@ const Home = (props: Props) => {
         defaultValue={props.reducer.user}
         onChange={updateUser}
       />
+      <TextInput
+        id="boardInput"
+        label="Board"
+        onChange={updateBoard}
+      />
+      <button onClick={createBoard} style={{padding: "10px", margin: "10px 10px 10px 0"}}>create</button>
 
       test {props.reducer.user}
-      <Card />
     </div>
   );
 };

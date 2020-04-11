@@ -9,13 +9,27 @@ import {
   Divider,
   TextField,
 } from '@material-ui/core';
-import { EditSharp as EditSharpIcon, SaveSharp } from '@material-ui/icons';
+import { EditSharp as EditSharpIcon, SaveSharp, ClearSharp } from '@material-ui/icons';
 
-export function Card() {
+interface Props {
+  defaultText?: string
+  isEditing?: boolean
+  onChange?: (text: string) => void
+}
+export function Ticket(props: Props) {
   const classes = useStyles();
-  const [text, setText] = useState("naanananannanananan watman!")
-  const [isEditing, setIsEditing] = useState(false)
+  const [text, setText] = useState(props.defaultText || "")
+  const [isEditing, setIsEditing] = useState(props.isEditing)
   const toggleIsEditing = () => setIsEditing(!isEditing)
+
+  const onSave = () => {
+    setIsEditing(false)
+    props.onChange && props.onChange(text)
+  }
+
+  const onBlur = (evt: any) => {
+    setText(evt.target.value)
+  }
 
   if (isEditing) {
     return (
@@ -29,18 +43,21 @@ export function Card() {
             variant="outlined"
             autoFocus
             fullWidth
-            onBlur={evt => setText(evt.target.value)}
+            onBlur={onBlur}
           />
         </CardContent>
         <Divider />
         <CardActions className={classes.actions}>
           <IconButton size="small" onClick={toggleIsEditing}>
+            <ClearSharp aria-label="Cancel" />
+          </IconButton>
+          <IconButton size="small" onClick={onSave}>
             <SaveSharp aria-label="Save" />
           </IconButton>
         </CardActions>
       </MdCard>
     )
-  }  
+  }
   return (
     <MdCard className={classes.root}>
       <CardContent className={classes.content}>

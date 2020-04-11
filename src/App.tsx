@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./page/Home";
+import { Board } from "./page/Board";
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 import { mainReducer } from "./mainReducer";
@@ -21,6 +22,9 @@ const App = () => {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/board/:boardId">
+              <Board />
             </Route>
           </Switch>
       </Router>

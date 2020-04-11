@@ -14,6 +14,7 @@
     "@types/react-redux": "^7.1.7",
     "@types/redux": "^3.6.0",
     "@types/redux-devtools": "^3.0.47",
+    "firebase": "^7.13.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
