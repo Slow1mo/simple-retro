@@ -5,6 +5,7 @@ import { Board } from "./page/Board";
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 import { mainReducer } from "./mainReducer";
+import "./App.scss"
 
 const rootReducer = combineReducers({
   mainReducer: mainReducer,
@@ -17,7 +18,7 @@ const store = createStore(rootReducer)
 const App = () => {
   return (
     <Provider store={store}>
-    <main style={{ margin: "50px 50px 0" }}>
+    <main className="main">
       <Router>
           <Switch>
             <Route exact path="/">

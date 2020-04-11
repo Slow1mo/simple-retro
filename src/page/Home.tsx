@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { RootState } from "../App";
 import { actions, ReducerState } from "../mainReducer";
 import { TextInput } from "../component/TextInput";
-import { Ticket } from "../component/Ticket";
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { v4 as uuid } from "uuid"
 import { fireb } from "../fire";

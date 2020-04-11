@@ -5,6 +5,7 @@ interface Props {
   label: string;
   defaultValue?: string;
   onChange: (value: string) => void;
+  style?: any
 }
 
 export const TextInput = (props: Props) => {
@@ -12,7 +13,7 @@ export const TextInput = (props: Props) => {
   const onChange = (evt: any) => props.onChange(evt.target.value);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "200px" }}>
+    <div style={{ display: "flex", flexDirection: "column", width: "200px", ...props.style }}>
       <label htmlFor={id}>{label}</label>
       <input
         tabIndex={0}
